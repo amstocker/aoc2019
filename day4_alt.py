@@ -1,14 +1,9 @@
+# Password length
 N = 6
-low = 265275
-high = 781584
 
-def concat(int_list):
-    n = 0
-    k = 0
-    for i in reversed(int_list):
-        n += i * (10**k)
-        k += 1
-    return n
+# Represent passwords as lists of integers
+low = list(map(int, str(265275)))
+high = list(map(int, str(781584)))
 
 def make_password(password, start, depth):
     if depth >= N:
@@ -17,12 +12,11 @@ def make_password(password, start, depth):
         for n in range(start, 10):
             yield from make_password(password[:] + [n], n, depth + 1)
 
-
 # Generate non-decreasing passwords and check for doubles.
 counter_p1 = 0
 counter_p2 = 0
 for pw in make_password([], 0, 0):
-    if low <= concat(pw) <= high:
+    if low <= pw <= high:
         digit_count = 10 * [0]
         for n in pw:
             digit_count[n] += 1
