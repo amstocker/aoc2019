@@ -5,7 +5,7 @@ def get_data():
 def step(data, cur):
     op = data[cur]
     if op == 99:
-        return data, cur
+        return cur
     src1 = data[cur + 1]
     src2 = data[cur + 2]
     dest = data[cur + 3]
@@ -15,14 +15,14 @@ def step(data, cur):
         data[dest] = data[src1] * data[src2]
     else:
         raise RuntimeError
-    return data, cur + 4
+    return cur + 4
 
 def run(data):
     cur = 0
     running = True
     while running:
         last_cur = cur
-        data, cur = step(data, cur)
+        cur = step(data, cur)
         if cur == last_cur:
             running = False
     return data[0]
