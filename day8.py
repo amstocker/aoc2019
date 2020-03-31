@@ -1,10 +1,8 @@
 from itertools import chain
 
-
+# width and height of image format
 W, H = 25, 6
 
-with open("day8.txt") as f:
-    data = [int(c) for c in f.read().strip()]
 
 def make_layers(data):
     layers = []
@@ -50,8 +48,31 @@ def answer_from_layer(layer):
             twos_sum += 1
     return ones_sum * twos_sum
 
+def print_image(image):
+    encoding = lambda z: [' ','x','*'][z]
+    print('\n'.join(["".join(map(encoding, row)) for row in image]))
+
+def process_image(layers):
+    # start with transparent image
+    image = []
+    for _ in range(H):
+        image.append(W * [2])
+    for layer in layers:
+        for y in range(H):
+            for x in range(W):
+                if image[y][x] == 2:
+                    image[y][x] = layer[y][x]
+    return image
+
+
+with open("day8.txt") as f:
+    data = [int(c) for c in f.read().strip()]
 
 # part 1
 layers = make_layers(data)
 min_layer = get_min_layer(layers)
 print(answer_from_layer(min_layer))
+
+# part 2
+image = process_image(layers)
+print_image(image)
