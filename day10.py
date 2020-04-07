@@ -18,6 +18,7 @@ for dx in range(-W + 1, W):
     for dy in range(-W + 1, H):
         if (dx == 0) or (dy == 0):
             continue
+        # check if positive scalar multiple, if so replace
         for (dx0, dy0) in slopes:
             if (dx * dy0 == dx0 * dy) and (dx * dx0 > 0):
                 if (abs(dx) < abs(dx0)) or (abs(dy) < abs(dy0)):
